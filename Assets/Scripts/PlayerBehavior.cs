@@ -32,8 +32,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetButton("Fire1")) {
 			float camDis = cam.transform.position.z - playerPos.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position, Quaternion.LookRotation(mouse - transform.position, new Vector3(0,0,1)));
-			Bullets.Add(bullet);
+			Bullets.AddRange(FireBurst(transform.position, mouse));
 		}
 		for (int i = 0; i < Bullets.Count; i++) {
 			GameObject moveBullet = Bullets[i];
@@ -46,5 +45,11 @@ public class PlayerBehavior : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	List<GameObject> FireBurst(Vector3 origin, Vector3 target) {
+		List<GameObject> retList = new List<GameObject>(1);
+		retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.LookRotation(target - origin, new Vector3(0,0,1))));
+		return retList;
 	}
 }
