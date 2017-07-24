@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBehavior : MonoBehaviour {
 
 	public GameObject bulletPrefab;
-	public Vector2 playerPos;
+	public Vector3 playerPos;
 
 	private List<GameObject> Bullets = new List<GameObject>();
 	private float playerVelocity;
@@ -25,12 +25,12 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 0.05f;}
 		float yPos = gameObject.transform.position.y + (Input.GetAxis ("Vertical")) * playerVelocity;
 		float xPos = gameObject.transform.position.x + (Input.GetAxis ("Horizontal")) * playerVelocity;
-		playerPos = new Vector2 (Mathf.Clamp (xPos, -8, 8), Mathf.Clamp (yPos, -4, 4));
+		playerPos = new Vector3 (Mathf.Clamp (xPos, -8, 8), Mathf.Clamp (yPos, -4, 4), 0);
 		gameObject.transform.position = playerPos;
 		playerVelocity = 0.1f;
 
 		if (Input.GetButton("Fire1")) {
-			float camDis = cam.transform.position.y - playerPos.y;
+			float camDis = cam.transform.position.z - playerPos.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
 			GameObject bullet = (GameObject)Instantiate(bulletPrefab, transform.position, Quaternion.LookRotation(mouse - transform.position, new Vector3(0,0,1)));
 			Bullets.Add(bullet);
@@ -39,7 +39,7 @@ public class PlayerBehavior : MonoBehaviour {
 			GameObject moveBullet = Bullets[i];
 			if (moveBullet != null) {
 				moveBullet.transform.Translate(new Vector3(0, 1, 0) * bulletVelocity);
-				Vector2 bulletScreenPos = cam.WorldToScreenPoint(moveBullet.transform.position);
+				Vector3 bulletScreenPos = cam.WorldToScreenPoint(moveBullet.transform.position);
 				if (bulletScreenPos.x > Screen.width || bulletScreenPos.y > Screen.height || bulletScreenPos.y < 0 || bulletScreenPos.x < 0) {
 					DestroyObject(moveBullet);
 					Bullets.Remove(moveBullet);
