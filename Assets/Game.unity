@@ -282,4 +282,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1831506151812572, guid: c4e6f09656fa94c27a035e19e9f4ca56,
     type: 2}
-  playerPos: {x: 0, y: 0}
+  playerPos: {x: 0, y: 0, z: 0}
