@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BurstFire;
 
 public class PlayerBehavior : MonoBehaviour {
 
@@ -11,6 +12,8 @@ public class PlayerBehavior : MonoBehaviour {
 	private float playerVelocity;
 	private float bulletVelocity;
 	private Camera cam;
+	private Burst testBurst = new Burst();
+	private int cooldown = 1;
 
 	// Use this for initialization
 	void Start () {
@@ -29,10 +32,11 @@ public class PlayerBehavior : MonoBehaviour {
 		gameObject.transform.position = playerPos;
 		playerVelocity = 0.1f;
 
-		if (Input.GetButton("Fire1")) {
-			float camDis = cam.transform.position.z - playerPos.z;
+		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
+		if (Input.GetButton("Fire1") && cooldown == 0) {
+			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			Bullets.AddRange(FireBurst(transform.position, mouse));
+			Bullets.AddRange(FireBurst(transform.position, mouse, testBurst, ref cooldown));
 		}
 		for (int i = 0; i < Bullets.Count; i++) {
 			GameObject moveBullet = Bullets[i];
@@ -47,9 +51,15 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 
-	List<GameObject> FireBurst(Vector3 origin, Vector3 target) {
-		List<GameObject> retList = new List<GameObject>(1);
-		retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.LookRotation(target - origin, new Vector3(0,0,1))));
+	List<GameObject> FireBurst(Vector3 origin, Vector3 target, Burst burst, ref int cd) {
+
+		List<GameObject> retList = new List<GameObject>();
+		float rotation;
+		for (int i = 0; i < burst.shots.Count; i++) {
+			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + burst.shots[i];
+			retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
+		}
+		cd = burst.cooldown;
 		return retList;
 	}
 }
