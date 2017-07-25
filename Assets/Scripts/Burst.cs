@@ -8,6 +8,7 @@ namespace BurstFire {
 		public float spread;
 		public int cooldown;
 
+		// Constructor
 		public Burst(int newSize = 1, float newSpread = 45f) {
 			shots = MakeSpread(newSize, newSpread);
 			cooldown = newSize * 5;
@@ -20,6 +21,7 @@ namespace BurstFire {
 			shots[index] = newAngle;
 		}
 
+		// Helper functions
 		private List<float> MakeSpread(int newSize, float newSpread) {
 			List<float> newShots = new List<float>(newSize);
 			if (newSize == 1) {

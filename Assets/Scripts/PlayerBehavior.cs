@@ -25,6 +25,7 @@ public class PlayerBehavior : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		// Player movement handling
 		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 0.05f;}
 		float yPos = gameObject.transform.position.y + (Input.GetAxis ("Vertical")) * playerVelocity;
 		float xPos = gameObject.transform.position.x + (Input.GetAxis ("Horizontal")) * playerVelocity;
@@ -32,12 +33,15 @@ public class PlayerBehavior : MonoBehaviour {
 		gameObject.transform.position = playerPos;
 		playerVelocity = 0.1f;
 
+		// Fire handling
 		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
 		if (Input.GetButton("Fire1") && cooldown == 0) {
 			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
 			Bullets.AddRange(FireBurst(transform.position, mouse, testBurst, ref cooldown));
 		}
+
+		// Bullet movement handling
 		for (int i = 0; i < Bullets.Count; i++) {
 			GameObject moveBullet = Bullets[i];
 			if (moveBullet != null) {
