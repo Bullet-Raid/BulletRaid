@@ -26,31 +26,32 @@ public class PlayerBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Player movement handling
-		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 1f;}
-		float yPos = (Input.GetAxis ("Vertical"));
-		float xPos = (Input.GetAxis ("Horizontal"));
-		playerPos = (new Vector3 (xPos, yPos, 0));
-		playerPos.Normalize();
-		gameObject.transform.position += playerPos * playerVelocity * Time.deltaTime;
-		playerVelocity = 2f;
+		MovePlayer();
 
 		// Burst switch handling
-		for (int i = 1; i < 10; i++) {
-			if (Input.GetKeyDown(i.ToString())) {
-				currentBurst = new Burst(i);
-			}
-		}
+		HandleBurst();
 
 
 		// Fire handling
-		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
-		if (Input.GetButton("Fire1") && cooldown == 0) {
-			float camDis = cam.transform.position.z;
-			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			Bullets.AddRange(FireBurst(transform.position, mouse, currentBurst, ref cooldown));
-		}
+		Shoot();
 
 		// Bullet movement handling
+		MoveBullets();
+	}
+
+	List<GameObject> FireBurst(Vector3 origin, Vector3 target, Burst burst, ref int cd) {
+
+		List<GameObject> retList = new List<GameObject>();
+		float rotation;
+		for (int i = 0; i < burst.shots.Count; i++) {
+			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + burst.shots[i];
+			retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
+		}
+		cd = burst.cooldown;
+		return retList;
+	}
+
+	void MoveBullets() {
 		for (int i = 0; i < Bullets.Count; i++) {
 			GameObject moveBullet = Bullets[i];
 			if (moveBullet != null) {
@@ -64,15 +65,30 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 
-	List<GameObject> FireBurst(Vector3 origin, Vector3 target, Burst burst, ref int cd) {
-
-		List<GameObject> retList = new List<GameObject>();
-		float rotation;
-		for (int i = 0; i < burst.shots.Count; i++) {
-			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + burst.shots[i];
-			retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
+	void Shoot() {
+		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
+		if (Input.GetButton("Fire1") && cooldown == 0) {
+			float camDis = cam.transform.position.z;
+			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
+			Bullets.AddRange(FireBurst(transform.position, mouse, currentBurst, ref cooldown));
 		}
-		cd = burst.cooldown;
-		return retList;
+	}
+
+	void MovePlayer() {
+		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 1f;}
+		float yPos = (Input.GetAxis ("Vertical"));
+		float xPos = (Input.GetAxis ("Horizontal"));
+		playerPos = (new Vector3 (xPos, yPos, 0));
+		playerPos.Normalize();
+		gameObject.transform.position += playerPos * playerVelocity * Time.deltaTime;
+		playerVelocity = 2f;
+	}
+
+	void HandleBurst() {
+		for (int i = 1; i < 10; i++) {
+			if (Input.GetKeyDown(i.ToString())) {
+				currentBurst = new Burst(i);
+			}
+		}
 	}
 }
