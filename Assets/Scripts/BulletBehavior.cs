@@ -9,7 +9,8 @@ public class BulletBehavior : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		bulletVelocity = 1f;
+		bulletVelocity = 3f;
+		cam = Camera.main;
 	}
 
 	// Update is called once per frame
@@ -17,7 +18,13 @@ public class BulletBehavior : MonoBehaviour {
 		transform.Translate(new Vector3(0, 1, 0) * bulletVelocity * Time.deltaTime);
 		Vector3 bulletScreenPos = cam.WorldToScreenPoint(transform.position);
 		if (bulletScreenPos.x > Screen.width || bulletScreenPos.y > Screen.height || bulletScreenPos.y < 0 || bulletScreenPos.x < 0) {
-			DestroyObject(gameObject);
+			Destroy(gameObject);
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		if (col.gameObject.name != "bullet(Clone)") {
+			Destroy(col.gameObject);
 		}
 	}
 }

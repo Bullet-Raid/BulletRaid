@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using BurstFire;
 
 public class PlayerBehavior : MonoBehaviour {
@@ -40,9 +41,13 @@ public class PlayerBehavior : MonoBehaviour {
 	void FireBurst(Vector3 origin, Vector3 target) {
 
 		float rotation;
+		Quaternion direction;
+		Vector3 radiusAddition;
 		for (int i = 0; i < currentBurst.shots.Count; i++) {
 			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + currentBurst.shots[i];
-			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
+			direction = Quaternion.Euler(0,0,rotation);
+			radiusAddition = direction * (new Vector3(0,0.1f,0));
+			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin + radiusAddition, direction));
 		}
 		cooldown = currentBurst.cooldown;
 	}
@@ -72,5 +77,13 @@ public class PlayerBehavior : MonoBehaviour {
 				currentBurst = new Burst(i);
 			}
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		Destroy(gameObject);
+	}
+
+	void OnDestroy() {
+		SceneManager.LoadScene("Main Menu");
 	}
 }
