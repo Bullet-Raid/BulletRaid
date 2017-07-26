@@ -12,13 +12,13 @@ public class PlayerBehavior : MonoBehaviour {
 	private float playerVelocity;
 	private float bulletVelocity;
 	private Camera cam;
-	private Burst testBurst = new Burst();
+	private Burst currentBurst = new Burst();
 	private int cooldown = 1;
 
 	// Use this for initialization
 	void Start () {
-		playerVelocity = 0.1f;
-		bulletVelocity = 0.3f;
+		playerVelocity = 2f;
+		bulletVelocity = 3f;
 		cam = Camera.main;
 	}
 
@@ -26,26 +26,35 @@ public class PlayerBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// Player movement handling
-		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 0.05f;}
-		float yPos = gameObject.transform.position.y + (Input.GetAxis ("Vertical")) * playerVelocity;
-		float xPos = gameObject.transform.position.x + (Input.GetAxis ("Horizontal")) * playerVelocity;
-		playerPos = new Vector3 (Mathf.Clamp (xPos, -8, 8), Mathf.Clamp (yPos, -4, 4), 0);
-		gameObject.transform.position = playerPos;
-		playerVelocity = 0.1f;
+		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 1f;}
+		float yPos = (Input.GetAxis ("Vertical"));
+		float xPos = (Input.GetAxis ("Horizontal"));
+		playerPos = (new Vector3 (xPos, yPos, 0));
+		playerPos.Normalize();
+		gameObject.transform.position += playerPos * playerVelocity * Time.deltaTime;
+		playerVelocity = 2f;
+
+		// Burst switch handling
+		for (int i = 1; i < 10; i++) {
+			if (Input.GetKeyDown(i.ToString())) {
+				currentBurst = new Burst(i);
+			}
+		}
+
 
 		// Fire handling
 		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
 		if (Input.GetButton("Fire1") && cooldown == 0) {
 			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			Bullets.AddRange(FireBurst(transform.position, mouse, testBurst, ref cooldown));
+			Bullets.AddRange(FireBurst(transform.position, mouse, currentBurst, ref cooldown));
 		}
 
 		// Bullet movement handling
 		for (int i = 0; i < Bullets.Count; i++) {
 			GameObject moveBullet = Bullets[i];
 			if (moveBullet != null) {
-				moveBullet.transform.Translate(new Vector3(0, 1, 0) * bulletVelocity);
+				moveBullet.transform.Translate(new Vector3(0, 1, 0) * bulletVelocity * Time.deltaTime);
 				Vector3 bulletScreenPos = cam.WorldToScreenPoint(moveBullet.transform.position);
 				if (bulletScreenPos.x > Screen.width || bulletScreenPos.y > Screen.height || bulletScreenPos.y < 0 || bulletScreenPos.x < 0) {
 					DestroyObject(moveBullet);
