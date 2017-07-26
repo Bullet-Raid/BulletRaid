@@ -39,16 +39,14 @@ public class PlayerBehavior : MonoBehaviour {
 		MoveBullets();
 	}
 
-	List<GameObject> FireBurst(Vector3 origin, Vector3 target, Burst burst, ref int cd) {
+	void FireBurst(Vector3 origin, Vector3 target) {
 
-		List<GameObject> retList = new List<GameObject>();
 		float rotation;
-		for (int i = 0; i < burst.shots.Count; i++) {
-			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + burst.shots[i];
-			retList.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
+		for (int i = 0; i < currentBurst.shots.Count; i++) {
+			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + currentBurst.shots[i];
+			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
 		}
-		cd = burst.cooldown;
-		return retList;
+		cooldown = currentBurst.cooldown;
 	}
 
 	void MoveBullets() {
@@ -70,7 +68,7 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetButton("Fire1") && cooldown == 0) {
 			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			Bullets.AddRange(FireBurst(transform.position, mouse, currentBurst, ref cooldown));
+			FireBurst(transform.position, mouse);
 		}
 	}
 
