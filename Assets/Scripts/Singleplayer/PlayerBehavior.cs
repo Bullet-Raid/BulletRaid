@@ -40,11 +40,12 @@ public class PlayerBehavior : MonoBehaviour {
 
 	void FireBurst(Vector3 origin, Vector3 target) {
 
+		float middleRay = Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1));
 		float rotation;
 		Quaternion direction;
 		Vector3 radiusAddition;
 		for (int i = 0; i < currentBurst.shots.Count; i++) {
-			rotation =  Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1)) + currentBurst.shots[i];
+			rotation = middleRay + currentBurst.shots[i];
 			direction = Quaternion.Euler(0,0,rotation);
 			radiusAddition = direction * (new Vector3(0,0.1f,0));
 			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin + radiusAddition, direction));
