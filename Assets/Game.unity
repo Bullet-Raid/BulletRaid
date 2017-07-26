@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 630161303}
   - component: {fileID: 630161302}
   - component: {fileID: 630161304}
+  - component: {fileID: 630161305}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -263,7 +264,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 630161301}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.67, y: 0.03, z: 0}
+  m_LocalPosition: {x: 0.59, y: 0.03, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -283,3 +284,23 @@ MonoBehaviour:
   bulletPrefab: {fileID: 1831506151812572, guid: c4e6f09656fa94c27a035e19e9f4ca56,
     type: 2}
   playerPos: {x: 0, y: 0, z: 0}
+--- !u!50 &630161305
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 630161301}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
