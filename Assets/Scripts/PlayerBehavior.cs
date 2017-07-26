@@ -35,8 +35,6 @@ public class PlayerBehavior : MonoBehaviour {
 		// Fire handling
 		Shoot();
 
-		// Bullet movement handling
-		MoveBullets();
 	}
 
 	void FireBurst(Vector3 origin, Vector3 target) {
@@ -47,20 +45,6 @@ public class PlayerBehavior : MonoBehaviour {
 			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin, Quaternion.Euler(0,0,rotation)));
 		}
 		cooldown = currentBurst.cooldown;
-	}
-
-	void MoveBullets() {
-		for (int i = 0; i < Bullets.Count; i++) {
-			GameObject moveBullet = Bullets[i];
-			if (moveBullet != null) {
-				moveBullet.transform.Translate(new Vector3(0, 1, 0) * bulletVelocity * Time.deltaTime);
-				Vector3 bulletScreenPos = cam.WorldToScreenPoint(moveBullet.transform.position);
-				if (bulletScreenPos.x > Screen.width || bulletScreenPos.y > Screen.height || bulletScreenPos.y < 0 || bulletScreenPos.x < 0) {
-					DestroyObject(moveBullet);
-					Bullets.Remove(moveBullet);
-				}
-			}
-		}
 	}
 
 	void Shoot() {
