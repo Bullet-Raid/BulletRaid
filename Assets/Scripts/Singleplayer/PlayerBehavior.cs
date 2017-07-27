@@ -26,18 +26,17 @@ public class PlayerBehavior : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		// Player movement handling
 		MovePlayer();
-
-		// Burst switch handling
 		HandleBurst();
-
-
-		// Fire handling
 		Shoot();
-
 	}
 
+	// Is triggered when player rigidbody collides with any other rigidbody
+	void OnTriggerEnter2D(Collider2D col) {
+		Destroy(gameObject);
+	}
+
+	// Helper Functions
 	void FireBurst(Vector3 origin, Vector3 target) {
 
 		float middleRay = Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1));
@@ -80,9 +79,6 @@ public class PlayerBehavior : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		Destroy(gameObject);
-	}
 
 	void OnDestroy() {
 		SceneManager.LoadScene("Main Menu");
