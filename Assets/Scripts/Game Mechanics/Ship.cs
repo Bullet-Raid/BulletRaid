@@ -8,24 +8,24 @@ public class Ship : MonoBehaviour {
 	private List<Burst> Bursts;
 	private int CurrentBurstIndex;
 	private int cooldown = 1;
+	private Vector3 Position;
 
-	public Vector3 Position;
 
-	// Use this for initialization
-	void Start () {
-
-	}
-
-	// Update is called once per frame
-	void Update () {
+	// Constructor
+	public Burst () {
 
 	}
 
-	Vector3 Move(Vector3 movementVector) {
-
+	// Moves ship and returns resultant position
+	public Vector3 Move(Vector3 movementVector) {
+		return Position;
 	}
 
-	void FireBurst(Vector3 direction, GameObject bulletPrefab) {
+	Public Vector3 GetPosition() {
+		return Position;
+	}
+
+	public void FireBurst(Vector3 direction, GameObject bulletPrefab) {
 
 	}
 }
