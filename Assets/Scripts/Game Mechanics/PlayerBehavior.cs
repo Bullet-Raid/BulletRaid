@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using BurstFire;
 
 public class PlayerBehavior : MonoBehaviour {
 
