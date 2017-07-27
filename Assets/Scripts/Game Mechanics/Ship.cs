@@ -12,7 +12,7 @@ public class Ship : MonoBehaviour {
 
 
 	// Constructor
-	public Burst () {
+	public Ship (List<Burst> Burst) {
 
 	}
 
@@ -21,8 +21,12 @@ public class Ship : MonoBehaviour {
 		return Position;
 	}
 
-	Public Vector3 GetPosition() {
+	public Vector3 GetPosition() {
 		return Position;
+	}
+
+	public void SwitchBurst(int i) {
+
 	}
 
 	public void FireBurst(Vector3 direction, GameObject bulletPrefab) {
