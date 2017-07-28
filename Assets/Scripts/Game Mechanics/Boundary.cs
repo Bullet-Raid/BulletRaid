@@ -12,7 +12,7 @@ public class Boundary : MonoBehaviour {
 		UpperRight = upperRight;
 	}
 
-	public Vector3 MovementIntersection(Vector3 start, Vector3 movement) {
+	public Vector3 MoveClamped(Vector3 start, Vector3 movement) {
 		if (!Exceeds(start + movement)) {return start + movement;}
 	}
 
