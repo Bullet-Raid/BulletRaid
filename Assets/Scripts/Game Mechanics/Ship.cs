@@ -11,9 +11,9 @@ public class Ship : MonoBehaviour {
 	private Vector3 Position;
 
 
-	// Constructor
-	public Ship (List<Burst> Burst) {
-
+	// Constructor with bursts
+	public Ship (List<Burst> bursts) {
+		Bursts = bursts;
 	}
 
 	// Moves ship and returns resultant position
