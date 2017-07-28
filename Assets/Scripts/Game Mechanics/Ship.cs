@@ -26,7 +26,7 @@ public class Ship : MonoBehaviour {
 	}
 
 	public void SwitchBurst(int i) {
-
+		CurrentBurstIndex = Mathf.Clamp(i, 0, Bursts.Count - 1);
 	}
 
 	public void FireBurst(Vector3 direction, GameObject bulletPrefab) {
