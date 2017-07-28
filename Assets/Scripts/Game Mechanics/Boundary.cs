@@ -13,7 +13,7 @@ public class Boundary : MonoBehaviour {
 	}
 
 	public Vector3 MovementIntersection(Vector3 start, Vector3 movement) {
-
+		if (!Exceeds(start + movement)) {return start + movement;}
 	}
 
 	public bool Exceeds(Vector3 v) {
