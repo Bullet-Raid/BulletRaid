@@ -11,6 +11,12 @@ public class Ship : MonoBehaviour {
 	private Vector3 Position;
 
 
+	// Empty Constructor
+	public Ship () {
+		Bursts = new List<Burst> {new Burst()};
+	}
+
+
 	// Constructor with bursts
 	public Ship (List<Burst> bursts) {
 		Bursts = bursts;
