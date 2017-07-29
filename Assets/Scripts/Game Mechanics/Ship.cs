@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour {
+public class Ship {
 
 	private float Speed;
 	private List<Burst> Bursts;
