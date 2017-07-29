@@ -21,10 +21,10 @@ public class Boundary : MonoBehaviour {
 
 	public bool Exceeds(Vector3 v) {
 		return (
-			v.x < UpperRight.x ||
-			v.y < UpperRight.y ||
-			v.x > LowerLeft.x ||
-			v.x > LowerLeft.y
+			v.x > UpperRight.x ||
+			v.y > UpperRight.y ||
+			v.x < LowerLeft.x ||
+			v.y < LowerLeft.y
 		);
 	}
 }
