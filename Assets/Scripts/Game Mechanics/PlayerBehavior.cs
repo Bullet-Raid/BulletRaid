@@ -14,14 +14,14 @@ public class PlayerBehavior : MonoBehaviour {
 	private Camera cam;
 	private Burst currentBurst = new Burst();
 	private int cooldown = 1;
-	private Boundary boundaries;
+	private Boundary bounds;
 
 	// Use this for initialization
 	void Start () {
 		playerVelocity = 2f;
 		bulletVelocity = 3f;
 		cam = Camera.main;
-		boundaries = new Boundary(
+		bounds = new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
 			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z)),
 			0.1f
@@ -72,7 +72,7 @@ public class PlayerBehavior : MonoBehaviour {
 		float xPos = (Input.GetAxis ("Horizontal"));
 		playerPos = (new Vector3 (xPos, yPos, 0));
 		playerPos.Normalize();
-		gameObject.transform.position = boundaries.MoveClamped(gameObject.transform.position, playerPos * playerVelocity * Time.deltaTime);
+		gameObject.transform.position = bounds.MoveClamped(gameObject.transform.position, playerPos * playerVelocity * Time.deltaTime);
 
 		playerVelocity = 2f;
 	}

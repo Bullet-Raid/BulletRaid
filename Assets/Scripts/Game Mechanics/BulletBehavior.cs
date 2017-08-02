@@ -6,13 +6,13 @@ public class BulletBehavior : MonoBehaviour {
 
 	private float bulletVelocity;
 	private Camera cam;
-	private Boundary boundaries;
+	private Boundary bounds;
 
 	// Use this for initialization
 	void Start () {
 		bulletVelocity = 3f;
 		cam = Camera.main;
-		boundaries = new Boundary(
+		bounds = new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
 			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z))
 		);
@@ -21,7 +21,7 @@ public class BulletBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		transform.Translate(new Vector3(0, 1, 0) * bulletVelocity * Time.deltaTime);
-		if (boundaries.Exceeds(transform.position)) {
+		if (bounds.Exceeds(transform.position)) {
 			Destroy(gameObject);
 		}
 	}
