@@ -7,9 +7,10 @@ public class Boundary {
 	private Vector3 LowerLeft;
 	private Vector3 UpperRight;
 
-	public Boundary(Vector3 lowerLeft, Vector3 upperRight) {
-		LowerLeft = lowerLeft;
-		UpperRight = upperRight;
+	public Boundary(Vector3 lowerLeft, Vector3 upperRight, float buffer = 0) {
+		Vector3 bufferVector = new Vector3(buffer, buffer, 0);
+		LowerLeft = lowerLeft + bufferVector;
+		UpperRight = upperRight - bufferVector;
 	}
 
 	public Vector3 MoveClamped(Vector3 start, Vector3 movement) {
