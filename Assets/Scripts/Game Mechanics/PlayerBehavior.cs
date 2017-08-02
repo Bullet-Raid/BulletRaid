@@ -23,7 +23,8 @@ public class PlayerBehavior : MonoBehaviour {
 		cam = Camera.main;
 		boundaries = new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
-			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z))
+			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z)),
+			0.1f
 		);
 	}
 
