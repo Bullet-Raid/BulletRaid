@@ -4,21 +4,23 @@ using UnityEngine;
 
 public class Ship {
 
-	private float Speed;
 	private List<Burst> Bursts;
 	private int CurrentBurstIndex;
-	private int cooldown = 1;
+	private int Cooldown;
 	private Vector3 Position;
+	private Boundary Bounds;
 
 
 	// Empty Constructor
 	public Ship () {
 		Bursts = new List<Burst> {new Burst()};
+		Cooldown = 1;
+		CurrentBurstIndex = 1;
 	}
 
 
 	// Constructor with bursts
-	public Ship (List<Burst> bursts) {
+	public Ship (List<Burst> bursts) : this() {
 		Bursts = bursts;
 	}
 
