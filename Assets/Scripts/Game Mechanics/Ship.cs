@@ -26,7 +26,13 @@ public class Ship {
 
 	// Moves ship and returns resultant position
 	public Vector3 Move(Vector3 movementVector) {
-		return Position;
+		return ((Bounds == null) ?
+			(Position + movementVector) :
+			(Bounds.MoveClamped(Position, movementVector)));
+	}
+
+	public void SetBounds(Vector3 lowerLeft, Vector3 upperRight, float buffer = 0) {
+		Bounds = new Boundary(lowerLeft, upperRight, buffer);
 	}
 
 	public Vector3 GetPosition() {
