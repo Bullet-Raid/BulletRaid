@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class Burst {
 	public List<float> shots;
-	public float spread;
+	private float spread;
 	public int cooldown;
 
 	// Constructor
