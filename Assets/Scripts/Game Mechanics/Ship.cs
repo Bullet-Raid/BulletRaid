@@ -38,7 +38,7 @@ public class Ship : MonoBehaviour {
 		return Position;
 	}
 
-	public void setPosition(Vector3 newPosition) {
+	public void SetPosition(Vector3 newPosition) {
 		Position = newPosition;
 	}
 
