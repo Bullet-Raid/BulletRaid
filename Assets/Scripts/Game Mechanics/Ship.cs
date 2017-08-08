@@ -18,11 +18,6 @@ public class Ship : MonoBehaviour {
 		CurrentBurstIndex = 0;
 	}
 
-	// Constructor with bursts
-	public Ship (List<Burst> bursts) : this() {
-		Bursts = bursts;
-	}
-
 	// Moves ship and returns resultant position
 	public void Move(Vector3 movementVector) {
 		Position = ((Bounds == null) ?
@@ -40,6 +35,10 @@ public class Ship : MonoBehaviour {
 
 	public void SetPosition(Vector3 newPosition) {
 		Position = newPosition;
+	}
+
+	public void SetBursts(List<Burst> newBursts) {
+		Bursts = newBursts;
 	}
 
 	public void SwitchBurst(int i) {
