@@ -25,8 +25,8 @@ public class Ship : MonoBehaviour {
 	}
 
 	// Moves ship and returns resultant position
-	public Vector3 Move(Vector3 movementVector) {
-		return ((Bounds == null) ?
+	public void Move(Vector3 movementVector) {
+		Position = ((Bounds == null) ?
 			(Position + movementVector) :
 			(Bounds.MoveClamped(Position, movementVector)));
 	}
@@ -37,6 +37,10 @@ public class Ship : MonoBehaviour {
 
 	public Vector3 GetPosition() {
 		return Position;
+	}
+
+	public void setPosition(Vector3 newPosition) {
+		Position = newPosition;
 	}
 
 	public void SwitchBurst(int i) {
