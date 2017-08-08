@@ -67,6 +67,15 @@ public class Ship : MonoBehaviour {
 			radiusAddition = bulletDirection * (new Vector3(0, 0.1f, 0));
 			Instantiate(bulletPrefab, radiusAddition + Position, bulletDirection);
 		}
+		Cooldown = currentBurst.cooldown;
+	}
+
+	public void DecrementCooldown() {
+		Cooldown = Mathf.Clamp(Cooldown - 1, 0, 1000);
+	}
+
+	public bool ReadyToFire() {
+		return Cooldown == 0;
 	}
 }
 
