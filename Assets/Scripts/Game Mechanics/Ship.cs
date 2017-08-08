@@ -18,7 +18,6 @@ public class Ship : MonoBehaviour {
 		CurrentBurstIndex = 1;
 	}
 
-
 	// Constructor with bursts
 	public Ship (List<Burst> bursts) : this() {
 		Bursts = bursts;
@@ -65,7 +64,8 @@ public class Ship : MonoBehaviour {
 		for(int i = 0; i < currentBurst.shots.Count; i++) {
 			bulletRotation = middleRay + currentBurst.shots[i];
 			bulletDirection = Quaternion.Euler(0, 0, bulletRotation);
-			Instantiate(bulletPrefab, Position, bulletDirection);
+			radiusAddition = bulletDirection * (new Vector3(0, 0.1f, 0));
+			Instantiate(bulletPrefab, radiusAddition + Position, bulletDirection);
 		}
 	}
 }
