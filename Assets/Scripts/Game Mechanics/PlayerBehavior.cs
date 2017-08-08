@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PlayerBehavior : MonoBehaviour {
+
+public class PlayerBehavior : Ship {
 
 	public GameObject bulletPrefab;
-	public Vector3 playerPos;
-
-
 	private float playerVelocity;
 	private float bulletVelocity;
 	private Camera cam;
@@ -70,8 +68,8 @@ public class PlayerBehavior : MonoBehaviour {
 		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 1f;}
 		float yPos = (Input.GetAxis ("Vertical"));
 		float xPos = (Input.GetAxis ("Horizontal"));
-		playerPos = (new Vector3 (xPos, yPos, 0));
-		playerPos.Normalize();
+		Vector3 PlayerPos = (new Vector3 (xPos, yPos, 0));
+		Position.Normalize();
 		gameObject.transform.position = bounds.MoveClamped(gameObject.transform.position, playerPos * playerVelocity * Time.deltaTime);
 
 		playerVelocity = 2f;
