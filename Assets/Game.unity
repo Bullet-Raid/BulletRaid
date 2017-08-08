@@ -284,7 +284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1831506151812572, guid: c4e6f09656fa94c27a035e19e9f4ca56,
     type: 2}
-  playerPos: {x: 0, y: 0, z: 0}
 --- !u!50 &630161305
 Rigidbody2D:
   serializedVersion: 4
@@ -314,7 +313,7 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
