@@ -36,11 +36,6 @@ public class PlayerBehavior : Ship {
 		Shoot();
 	}
 
-	// Is triggered when player rigidbody collides with any other rigidbody
-	void OnTriggerEnter2D(Collider2D col) {
-		Destroy(gameObject);
-	}
-
 	// Helper Functions
 	void Shoot() {
 		DecrementCooldown();

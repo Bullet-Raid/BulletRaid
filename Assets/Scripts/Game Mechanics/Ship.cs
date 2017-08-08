@@ -76,6 +76,12 @@ public class Ship : MonoBehaviour {
 	public bool ReadyToFire() {
 		return Cooldown == 0;
 	}
+
+	// Is triggered when player rigidbody collides with any other rigidbody
+	void OnTriggerEnter2D(Collider2D col) {
+		Destroy(gameObject);
+	}
+
 }
 
 
