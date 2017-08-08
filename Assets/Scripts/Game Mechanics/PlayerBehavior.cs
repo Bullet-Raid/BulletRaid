@@ -8,7 +8,7 @@ public class PlayerBehavior : MonoBehaviour {
 	public GameObject bulletPrefab;
 	public Vector3 playerPos;
 
-	private List<GameObject> Bullets = new List<GameObject>();
+
 	private float playerVelocity;
 	private float bulletVelocity;
 	private Camera cam;
@@ -50,15 +50,15 @@ public class PlayerBehavior : MonoBehaviour {
 		Vector3 radiusAddition;
 		for (int i = 0; i < currentBurst.shots.Count; i++) {
 			rotation = middleRay + currentBurst.shots[i];
-			direction = Quaternion.Euler(0,0,rotation);
-			radiusAddition = direction * (new Vector3(0,0.1f,0));
-			Bullets.Add((GameObject)Instantiate(bulletPrefab, origin + radiusAddition, direction));
+			direction = Quaternion.Euler(0, 0, rotation);
+			radiusAddition = direction * (new Vector3(0, 0.1f, 0));
+			GameObject bullet = (GameObject)Instantiate(bulletPrefab, origin + radiusAddition, direction);
 		}
 		cooldown = currentBurst.cooldown;
 	}
 
 	void Shoot() {
-		cooldown = Mathf.Clamp(cooldown - 1, 0 ,1000);
+		cooldown = Mathf.Clamp(cooldown - 1, 0, 1000);
 		if (Input.GetButton("Fire1") && cooldown == 0) {
 			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
