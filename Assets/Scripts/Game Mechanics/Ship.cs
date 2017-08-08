@@ -15,7 +15,7 @@ public class Ship : MonoBehaviour {
 	public Ship () {
 		Bursts = new List<Burst> {new Burst()};
 		Cooldown = 1;
-		CurrentBurstIndex = 1;
+		CurrentBurstIndex = 0;
 	}
 
 	// Constructor with bursts
