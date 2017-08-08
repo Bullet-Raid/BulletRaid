@@ -26,9 +26,4 @@ public class BulletBehavior : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		if (col.gameObject.name != "bullet(Clone)") {
-			Destroy(col.gameObject);
-		}
-	}
 }
