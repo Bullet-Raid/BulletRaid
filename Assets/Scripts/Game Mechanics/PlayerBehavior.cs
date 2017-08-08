@@ -19,11 +19,12 @@ public class PlayerBehavior : Ship {
 		playerVelocity = 2f;
 		bulletVelocity = 3f;
 		cam = Camera.main;
-		bounds = new Boundary(
+		SetBounds(new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
 			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z)),
 			0.1f
-		);
+		));
+		SetPosition(transform.position);
 	}
 
 
@@ -40,27 +41,13 @@ public class PlayerBehavior : Ship {
 	}
 
 	// Helper Functions
-	void FireBurst(Vector3 origin, Vector3 target) {
-
-		float middleRay = Vector3.SignedAngle(new Vector3(0,1,0), new Vector3(target.x - origin.x, target.y - origin.y, 0), new Vector3(0,0,1));
-		float rotation;
-		Quaternion direction;
-		Vector3 radiusAddition;
-		for (int i = 0; i < currentBurst.shots.Count; i++) {
-			rotation = middleRay + currentBurst.shots[i];
-			direction = Quaternion.Euler(0, 0, rotation);
-			radiusAddition = direction * (new Vector3(0, 0.1f, 0));
-			GameObject bullet = (GameObject)Instantiate(bulletPrefab, origin + radiusAddition, direction);
-		}
-		cooldown = currentBurst.cooldown;
-	}
-
 	void Shoot() {
-		cooldown = Mathf.Clamp(cooldown - 1, 0, 1000);
-		if (Input.GetButton("Fire1") && cooldown == 0) {
+		DecrementCooldown();
+		if (Input.GetButton("Fire1") && ReadyToFire()) {
 			float camDis = cam.transform.position.z;
 			Vector3 mouse = cam.ScreenToWorldPoint (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, camDis));
-			FireBurst(transform.position, mouse);
+			mouse = new Vector3(mouse.x, mouse.y, 0);
+			FireBurst(mouse, bulletPrefab);
 		}
 	}
 
@@ -68,9 +55,10 @@ public class PlayerBehavior : Ship {
 		if (Input.GetKey(KeyCode.LeftShift)) {playerVelocity = 1f;}
 		float yPos = (Input.GetAxis ("Vertical"));
 		float xPos = (Input.GetAxis ("Horizontal"));
-		Vector3 PlayerPos = (new Vector3 (xPos, yPos, 0));
-		Position.Normalize();
-		gameObject.transform.position = bounds.MoveClamped(gameObject.transform.position, playerPos * playerVelocity * Time.deltaTime);
+		Vector3 movementVector = (new Vector3 (xPos, yPos, 0));
+		movementVector.Normalize();
+		Move(movementVector * playerVelocity * Time.deltaTime);
+		transform.position = GetPosition();
 
 		playerVelocity = 2f;
 	}
