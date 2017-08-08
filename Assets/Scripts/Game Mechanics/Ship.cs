@@ -30,8 +30,8 @@ public class Ship : MonoBehaviour {
 			(Bounds.MoveClamped(Position, movementVector)));
 	}
 
-	public void SetBounds(Vector3 lowerLeft, Vector3 upperRight, float buffer = 0) {
-		Bounds = new Boundary(lowerLeft, upperRight, buffer);
+	public void SetBounds(Boundary newBounds) {
+		Bounds = newBounds;
 	}
 
 	public Vector3 GetPosition() {
