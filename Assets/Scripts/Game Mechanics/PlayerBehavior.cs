@@ -8,16 +8,12 @@ public class PlayerBehavior : Ship {
 
 	public GameObject bulletPrefab;
 	private float playerVelocity;
-	private float bulletVelocity;
 	private Camera cam;
-	private Burst currentBurst = new Burst();
-	private int cooldown = 1;
-	private Boundary bounds;
+
 
 	// Use this for initialization
 	void Start () {
 		playerVelocity = 2f;
-		bulletVelocity = 3f;
 		cam = Camera.main;
 		SetBounds(new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
@@ -25,6 +21,11 @@ public class PlayerBehavior : Ship {
 			0.1f
 		));
 		SetPosition(transform.position);
+		List<Burst> bursts = new List<Burst>();
+		for (int i = 1; i < 10; i++){
+			bursts.Add(new Burst(i));
+		}
+		SetBursts(bursts);
 	}
 
 
@@ -66,7 +67,7 @@ public class PlayerBehavior : Ship {
 	void HandleBurst() {
 		for (int i = 1; i < 10; i++) {
 			if (Input.GetKeyDown(i.ToString())) {
-				currentBurst = new Burst(i);
+				SwitchBurst(i - 1);
 			}
 		}
 	}
