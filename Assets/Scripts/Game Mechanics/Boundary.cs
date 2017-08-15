@@ -28,4 +28,10 @@ public class Boundary {
 			v.y < LowerLeft.y
 		);
 	}
+
+	public Vector3 RandomLocation() {
+		return new Vector3(
+			Random.Range(LowerLeft.x, UpperRight.x),
+			Random.Range(LowerLeft.y, UpperRight.y));
+	}
 }
