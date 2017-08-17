@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ship : MonoBehaviour {
+public class Ship : MonoBehaviour
+{
 
 	private List<Burst> Bursts;
 	private int CurrentBurstIndex;
@@ -12,43 +13,51 @@ public class Ship : MonoBehaviour {
 
 
 	// Empty Constructor
-	public Ship () {
-		Bursts = new List<Burst> {new Burst()};
+	public Ship()
+	{
+		Bursts = new List<Burst> { new Burst() };
 		Cooldown = 1;
 		CurrentBurstIndex = 0;
 	}
 
 	// Moves ship and returns resultant position
-	public void Move(Vector3 movementVector) {
+	public void Move(Vector3 movementVector)
+	{
 		Position = ((Bounds == null) ?
 			(Position + movementVector) :
 			(Bounds.MoveClamped(Position, movementVector)));
 	}
 
-	public void SetBounds(Boundary newBounds) {
+	public void SetBounds(Boundary newBounds)
+	{
 		Bounds = newBounds;
 	}
 
-	public Vector3 GetPosition() {
+	public Vector3 GetPosition()
+	{
 		return Position;
 	}
 
-	public void SetPosition(Vector3 newPosition) {
+	public void SetPosition(Vector3 newPosition)
+	{
 		Position = newPosition;
 	}
 
-	public void SetBursts(List<Burst> newBursts) {
+	public void SetBursts(List<Burst> newBursts)
+	{
 		Bursts = newBursts;
 	}
 
-	public void SwitchBurst(int i) {
+	public void SwitchBurst(int i)
+	{
 		CurrentBurstIndex = Mathf.Clamp(i, 0, Bursts.Count - 1);
 	}
 
-	public void FireBurst(Vector3 direction, GameObject bulletPrefab) {
-		Vector3 quaternionDefaultVector = new Vector3(0,1,0);
+	public void FireBurst(Vector3 direction, GameObject bulletPrefab)
+	{
+		Vector3 quaternionDefaultVector = new Vector3(0, 1, 0);
 		Vector3 translatedPosition = direction - Position;
-		Vector3 zAxis = new Vector3(0,0,1);
+		Vector3 zAxis = new Vector3(0, 0, 1);
 
 		float middleRay = Vector3.SignedAngle(
 			quaternionDefaultVector,
@@ -60,7 +69,8 @@ public class Ship : MonoBehaviour {
 		Quaternion bulletDirection;
 		Vector3 radiusAddition;
 		Burst currentBurst = Bursts[CurrentBurstIndex];
-		for(int i = 0; i < currentBurst.shots.Count; i++) {
+		for (int i = 0; i < currentBurst.shots.Count; i++)
+		{
 			bulletRotation = middleRay + currentBurst.shots[i];
 			bulletDirection = Quaternion.Euler(0, 0, bulletRotation);
 			radiusAddition = bulletDirection * (new Vector3(0, 0.2f, 0));
@@ -69,21 +79,25 @@ public class Ship : MonoBehaviour {
 		Cooldown = currentBurst.cooldown;
 	}
 
-	public void DecrementCooldown() {
+	public void DecrementCooldown()
+	{
 		Cooldown = Mathf.Clamp(Cooldown - 1, 0, 1000);
 	}
 
-	public bool ReadyToFire() {
+	public bool ReadyToFire()
+	{
 		return Cooldown == 0;
 	}
 
-	public void RandomizeLocation() {
+	public void RandomizeLocation()
+	{
 		SetPosition(Bounds.RandomLocation());
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
+	void OnTriggerEnter2D(Collider2D col)
+	{
 		Destroy(gameObject);
-  	}
+	}
 
 }
 
