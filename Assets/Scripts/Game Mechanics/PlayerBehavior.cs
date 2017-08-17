@@ -56,7 +56,14 @@ public class PlayerBehavior : Ship {
 		Move(movementVector * playerVelocity * Time.deltaTime);
 		transform.position = GetPosition();
 
+		RotateToFace();
+
 		playerVelocity = 2f;
+	}
+
+	void RotateToFace(){
+ 		Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, mousePos - transform.position);
 	}
 
 	void HandleBurst() {
@@ -67,6 +74,14 @@ public class PlayerBehavior : Ship {
 		}
 	}
 
+
+	void OnTriggerEnter2D(Collider2D col) {
+			//Debug.Log(col.gameObject.tag);
+			
+			if(!col.gameObject.CompareTag("Bullet")){
+				Destroy(gameObject);
+			}
+	}
 
 	void OnDestroy() {
 		SceneManager.LoadScene("Main Menu");

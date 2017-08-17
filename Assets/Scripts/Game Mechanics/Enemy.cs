@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Enemy : Ship {
 
 	public GameObject enemyBulletPrefab;
-	public GameObject playerObj;
+	private GameObject playerObj;
 	private float enemyVelocity;
 	private Camera cam;
 	private float xMovement;
@@ -16,6 +16,8 @@ public class Enemy : Ship {
 
 	// Use this for initialization
 	void Start () {
+
+		playerObj = GameObject.FindGameObjectWithTag("Player");
 		xMovement = Random.Range(0f, 1.0f);
 		yMovement = Random.Range(0f, 1.0f);
 		internalCooldown = 40;
@@ -33,7 +35,7 @@ public class Enemy : Ship {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		MoveEnemy();
 		UpdateBehavior();
 	}
@@ -54,6 +56,11 @@ public class Enemy : Ship {
 			movementVector.Normalize();
 			Move(movementVector * enemyVelocity * Time.deltaTime);
 			transform.position = GetPosition();
+			RotateToFace();
+	}
+
+	public void RotateToFace(){
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, playerObj.transform.position - transform.position);
 	}
 
 
@@ -66,7 +73,11 @@ public class Enemy : Ship {
 	}
 
 	void OnTriggerEnter2D(Collider2D col) {
-		Respawn();
-		transform.position = GetPosition();
+		//Debug.Log(col.gameObject.tag);
+		
+		if(!col.gameObject.CompareTag("EnemyBullet")){
+			Destroy(gameObject);
+		}
 	}
+		// transform.position = GetPosition();
 }
