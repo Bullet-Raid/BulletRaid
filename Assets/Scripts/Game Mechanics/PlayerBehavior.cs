@@ -74,15 +74,6 @@ public class PlayerBehavior : Ship {
 		}
 	}
 
-
-	void OnTriggerEnter2D(Collider2D col) {
-			//Debug.Log(col.gameObject.tag);
-			
-			if(!col.gameObject.CompareTag("Bullet")){
-				Destroy(gameObject);
-			}
-	}
-
 	void OnDestroy() {
 		SceneManager.LoadScene("Main Menu");
 	}
