@@ -40,7 +40,11 @@ Icon?
 ehthumbs.db
 [Tt]humbs.db
 [Dd]esktop.ini
+# ===== #
+# Other #
+# ===== #
 Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 ProjectSettings/editorsettings.asset
 BulletRaid.sln
+*~
