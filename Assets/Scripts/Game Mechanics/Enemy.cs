@@ -72,12 +72,4 @@ public class Enemy : Ship {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		//Debug.Log(col.gameObject.tag);
-		
-		if(!col.gameObject.CompareTag("EnemyBullet")){
-			Destroy(gameObject);
-		}
-	}
-		// transform.position = GetPosition();
 }
