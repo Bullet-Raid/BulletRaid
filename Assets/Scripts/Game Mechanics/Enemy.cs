@@ -57,11 +57,16 @@ public class Enemy : Ship {
 	}
 
 
-		void EnemyShoot() {
+	void EnemyShoot() {
 		DecrementCooldown();
 		if (ReadyToFire()) {
 			Vector3 playerPos = playerObj.transform.position;
 			FireBurst(playerPos, enemyBulletPrefab);
 		}
+	}
+
+	void OnTriggerEnter2D(Collider2D col) {
+		Respawn();
+		transform.position = GetPosition();
 	}
 }

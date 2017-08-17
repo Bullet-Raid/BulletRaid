@@ -77,10 +77,15 @@ public class Ship : MonoBehaviour {
 		return Cooldown == 0;
 	}
 
+	public void Respawn() {
+		SetPosition(Bounds.RandomLocation());
+	}
+
 	// Is triggered when player rigidbody collides with any other rigidbody
 	void OnTriggerEnter2D(Collider2D col) {
 		Destroy(gameObject);
 	}
+
 
 }
 
