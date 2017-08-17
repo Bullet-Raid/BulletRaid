@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a7c6ac398c1455db67bf716aadabd1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyBulletPrefab: {fileID: 1183737872216356, guid: 95f19238cb407465e93c9604b4e32939,
+  enemyBulletPrefab: {fileID: 1831506151812572, guid: c4e6f09656fa94c27a035e19e9f4ca56,
     type: 2}
 --- !u!212 &212090186489749562
 SpriteRenderer:
