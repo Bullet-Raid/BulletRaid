@@ -77,7 +77,7 @@ public class Ship : MonoBehaviour {
 		return Cooldown == 0;
 	}
 
-	public void Respawn() {
+	public void RandomizeLocation() {
 		SetPosition(Bounds.RandomLocation());
 	}
 
