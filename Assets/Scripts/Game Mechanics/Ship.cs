@@ -77,10 +77,13 @@ public class Ship : MonoBehaviour {
 		return Cooldown == 0;
 	}
 
-	// public void Respawn() {
-	// 	SetPosition(Bounds.RandomLocation());
-	// }
+	public void Respawn() {
+		SetPosition(Bounds.RandomLocation());
+	}
 
+	void OnTriggerEnter2D(Collider2D col) {
+		Destroy(gameObject);
+  	}
 
 }
 
