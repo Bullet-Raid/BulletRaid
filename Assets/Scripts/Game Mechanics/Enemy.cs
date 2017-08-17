@@ -24,14 +24,14 @@ public class Enemy : Ship {
 		enemyVelocity = 2f;
 		cam = Camera.main;
 
-		SetPosition(transform.position);
 		SetBounds(new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
 			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z)),
 			0.1f
 		));
 		SwitchBurst(0);
-
+		RandomizeLocation();
+		transform.position = GetPosition();
 	}
 
 	// Update is called once per frame
