@@ -63,7 +63,7 @@ public class Ship : MonoBehaviour {
 		for(int i = 0; i < currentBurst.shots.Count; i++) {
 			bulletRotation = middleRay + currentBurst.shots[i];
 			bulletDirection = Quaternion.Euler(0, 0, bulletRotation);
-			radiusAddition = bulletDirection * (new Vector3(0, 0.1f, 0));
+			radiusAddition = bulletDirection * (new Vector3(0, 0.2f, 0));
 			Instantiate(bulletPrefab, radiusAddition + Position, bulletDirection);
 		}
 		Cooldown = currentBurst.cooldown;
@@ -77,15 +77,13 @@ public class Ship : MonoBehaviour {
 		return Cooldown == 0;
 	}
 
-	public void Respawn() {
+	public void RandomizeLocation() {
 		SetPosition(Bounds.RandomLocation());
 	}
 
-	// Is triggered when player rigidbody collides with any other rigidbody
 	void OnTriggerEnter2D(Collider2D col) {
 		Destroy(gameObject);
-	}
-
+  	}
 
 }
 

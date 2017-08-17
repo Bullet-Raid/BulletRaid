@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class Enemy : Ship {
 
 	public GameObject enemyBulletPrefab;
-	public GameObject playerObj;
+	private GameObject playerObj;
 	private float enemyVelocity;
 	private Camera cam;
 	private float xMovement;
@@ -16,24 +16,26 @@ public class Enemy : Ship {
 
 	// Use this for initialization
 	void Start () {
+
+		playerObj = GameObject.FindGameObjectWithTag("Player");
 		xMovement = Random.Range(0f, 1.0f);
 		yMovement = Random.Range(0f, 1.0f);
 		internalCooldown = 40;
 		enemyVelocity = 2f;
 		cam = Camera.main;
 
-		SetPosition(transform.position);
 		SetBounds(new Boundary(
 			cam.ScreenToWorldPoint(new Vector3(0,0,transform.position.z)),
 			cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, transform.position.z)),
 			0.1f
 		));
 		SwitchBurst(0);
-
+		RandomizeLocation();
+		transform.position = GetPosition();
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		MoveEnemy();
 		UpdateBehavior();
 	}
@@ -54,6 +56,11 @@ public class Enemy : Ship {
 			movementVector.Normalize();
 			Move(movementVector * enemyVelocity * Time.deltaTime);
 			transform.position = GetPosition();
+			RotateToFace();
+	}
+
+	public void RotateToFace(){
+		transform.rotation = Quaternion.LookRotation(Vector3.forward, playerObj.transform.position - transform.position);
 	}
 
 
@@ -65,8 +72,4 @@ public class Enemy : Ship {
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D col) {
-		Respawn();
-		transform.position = GetPosition();
-	}
 }
