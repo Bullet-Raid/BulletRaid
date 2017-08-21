@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class Enemy : Ship
+public class PatternEnemy : Ship
 {
 
 	public GameObject enemyBulletPrefab;
@@ -15,9 +15,9 @@ public class Enemy : Ship
 	private float yMovement;
 	private int internalCooldown;
 
+
 	// Use this for initialization
-	void Start()
-	{
+	void Start(){
 
 		playerObj = GameObject.FindGameObjectWithTag("Player");
 		xMovement = Random.Range(0f, 1.0f);
@@ -32,13 +32,13 @@ public class Enemy : Ship
 			0.1f
 		));
 		SwitchBurst(0);
-		RandomizeLocation();
-		transform.position = GetPosition();
+
+		SetPosition(transform.position);
+
 	}
 
 	// Update is called once per frame
-	void FixedUpdate()
-	{
+	void FixedUpdate(){
 		MoveEnemy();
 		UpdateBehavior();
 	}
