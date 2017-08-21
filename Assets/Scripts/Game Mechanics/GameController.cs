@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
 {
 
 	public GameObject enemyPrefab;
+	public GameObject playerPrefab;
 
 	private int spawnTimer;
 
@@ -13,6 +14,7 @@ public class GameController : MonoBehaviour
 	void Start()
 	{
 		spawnTimer = 0;
+		Instantiate(playerPrefab);
 
 	}
 
