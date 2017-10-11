@@ -15,10 +15,9 @@ public class GameController : MonoBehaviour{
 	{
 		spawnTimer = 0;
 		Instantiate(playerPrefab);
-
 		CreateEnemyPattern(-8, 3f, 20, 0.00f);
-
 	}
+
 
 	// Update is called once per frame
 	void Update()
@@ -37,7 +36,6 @@ public class GameController : MonoBehaviour{
 		}
 
 	}
-
 
 	void CreateEnemyPattern(float x, float y, int count, float variability){
 		int xInc = -1;
@@ -62,5 +60,4 @@ public class GameController : MonoBehaviour{
 
 		}
 	}
-
 }

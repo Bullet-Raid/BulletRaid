@@ -46,5 +46,9 @@ ehthumbs.db
 Corridor/Library/ShaderCache/
 Corridor/Library/metadata/
 ProjectSettings/editorsettings.asset
+<<<<<<< HEAD
+.vscode/
+=======
 BulletRaid.sln
 *~
+>>>>>>> 9e92414964f5b5e1ebdb60a02f9ae23798660759
